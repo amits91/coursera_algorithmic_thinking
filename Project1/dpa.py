@@ -70,9 +70,15 @@ def print_gi(dig):
 #     print i, '=>', dpg[i]
 # print_gi(dpg)
 
-import parse_graph as pg
-cg = pg.load_graph(pg.CITATION_URL)
-print_gi(cg)
-dcg = DPA(len(cg), 15)
-print_gi(dcg)
-
+# import parse_graph as pg
+# cg = pg.load_graph(pg.CITATION_URL)
+# print_gi(cg)
+# dcg = DPA(len(cg), 15)
+# print_gi(dcg)
+#
+# # Gives output
+# # Loaded graph with 27770 nodes
+# # Nodes 27770
+# # avg out-degree 12.7032048974
+# # Nodes 27770
+# # avg out-degree 12.3318329132
