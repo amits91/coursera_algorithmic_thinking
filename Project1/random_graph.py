@@ -26,3 +26,25 @@ def generate_undir_random_graph_ER(n, p):
 
 # generate_undir_random_graph_ER(10, 0)
 # generate_undir_random_graph_ER(10, .1)
+
+def generate_random_directed_graph(n, p):
+    '''
+    :param n: Total number of nodes
+    :param p: Probability of an edge
+    :return: dictionary of directed graph
+    '''
+    nodes = range(n)
+    graph = {}
+    for node in nodes:
+        graph[node] = set([])
+
+    for start in nodes:
+        for end in nodes:
+            if start == end:
+                continue
+            a = random.random()
+            if a < p :
+                graph[start].add(end)
+    return graph
+
+# print generate_random_directed_graph(10, 0.1)

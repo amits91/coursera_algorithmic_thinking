@@ -13,7 +13,9 @@ norm_in_deg_dist = degrees.norm_in_deg_dist(citation.citation_graph)
 plt.xlabel('in-degrees')
 plt.ylabel('Distribution')
 plt.title('LogLog graph of in-degree distribution')
+
 plt.loglog(norm_in_deg_dist.keys(), norm_in_deg_dist.values(), basex=2, basey=2, linestyle='None',
-           marker='x', markeredgecolor='red')
+           marker='x', markeredgecolor='red', label='Citation Graph')
+plt.legend(loc='upper right')
 plt.show()
 # print degrees.print_info(citation.citation_graph)
