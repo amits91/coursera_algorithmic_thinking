@@ -107,6 +107,6 @@ def print_info(digraph):
 
 # print in_degree_distribution(EX_GRAPH2)
 # print norm_in_deg_dist(EX_GRAPH2)
-print print_info(EX_GRAPH0)
-print print_info(EX_GRAPH1)
-print print_info(EX_GRAPH2)
+# print print_info(EX_GRAPH0)
+# print print_info(EX_GRAPH1)
+# print print_info(EX_GRAPH2)

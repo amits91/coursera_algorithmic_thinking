@@ -24,5 +24,5 @@ def generate_undir_random_graph_ER(n, p):
     print "n:", n, "p:", p, "len(E):", len(edges)
     print edges
 
-generate_undir_random_graph_ER(10, 0)
-generate_undir_random_graph_ER(10, .1)
+# generate_undir_random_graph_ER(10, 0)
+# generate_undir_random_graph_ER(10, .1)
