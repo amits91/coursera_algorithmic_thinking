@@ -10,16 +10,22 @@ import degrees as graph_util
 import numpy as nm
 # print nm.random.choice(range(5), 2, True, [0, .1, .8, 0, 0.1])
 
-def select_random_nodes(digraph, m):
+def totalindeg(indeg):
+    sum = 0
+    for node in indeg.keys():
+        sum = sum + indeg[node]
+    return sum
+
+
+def select_random_nodes(digraph, m, indeg=None, sum = -1):
     '''
     Randomly select nodes based on probability as per DPA
     :param V: input indeg dictionaries
     :return: a list of selected nodes V1
     '''
-    indeg = graph_util.compute_in_degrees(digraph)
-    sum = 0
-    for node in digraph.keys():
-        sum = sum + indeg[node]
+    if indeg == None:
+        indeg = graph_util.compute_in_degrees(digraph)
+        sum = totalindeg(indeg)
     prob = [(indeg[j] + 1.0)/(sum + len(digraph)) for j in digraph.keys()]
     # print digraph.keys()
     # print prob
@@ -37,11 +43,36 @@ def DPA(n, m):
     :return:A directed graph
     '''
     gE = graph_util.make_complete_graph(m)
+    indeg = graph_util.compute_in_degrees(gE)
+    totindeg = totalindeg(indeg)
     for i in range(m, n):
-        V1 = select_random_nodes(gE, m)
+        V1 = select_random_nodes(gE, m, indeg, totindeg)
         gE[i] = set(V1)
+        for j in V1:
+            indeg[j] = indeg[j] + 1
+        indeg[i] = 0
+        totindeg = totindeg + len(V1)
     return gE
 
-# dpg = DPA(10, 4)
+def print_gi(dig):
+    print "Nodes", len(dig)
+    tot = 0
+    for i in dig.keys():
+        tot = tot + len(dig[i])
+
+    avg = (tot * 1.0)/len(dig)
+    print "avg out-degree", avg
+
+# print_gi(graph_util.EX_GRAPH2)
+#
+# dpg = DPA(10, 2)
 # for i in dpg.keys():
 #     print i, '=>', dpg[i]
+# print_gi(dpg)
+
+import parse_graph as pg
+cg = pg.load_graph(pg.CITATION_URL)
+print_gi(cg)
+dcg = DPA(len(cg), 15)
+print_gi(dcg)
+
