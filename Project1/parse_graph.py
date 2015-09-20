@@ -37,5 +37,5 @@ def load_graph(graph_url):
 
     return answer_graph
 
-citation_graph = load_graph(CITATION_URL)
+# citation_graph = load_graph(CITATION_URL)
 # print citation_graph

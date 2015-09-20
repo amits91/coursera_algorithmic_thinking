@@ -8,14 +8,42 @@ import random_graph as rndgraph
 import parse_graph as citation
 import matplotlib.pyplot as plt
 
-norm_in_deg_dist = degrees.norm_in_deg_dist(citation.citation_graph)
+def create_loglog_plot(dist, marker='x', color='red', label=''):
+    '''
+    :param dist: in degree distribution of directed graph
+    :param marker: distinguishing marker
+    :param label: label corresponding to the graph
+    :return:
+    '''
+    plt.xlabel('in-degrees')
+    plt.ylabel('Distribution')
+    plt.title('LogLog plot of in-degree distribution')
+    plt.loglog(dist.keys(), dist.values(), basex=2, basey=2, linestyle='None',
+               marker=marker, markeredgecolor=color, label=label)
 
-plt.xlabel('in-degrees')
-plt.ylabel('Distribution')
-plt.title('LogLog graph of in-degree distribution')
+def create_simple_plot(dist, marker='x', color='red', label=''):
+    '''
+    :param dist: in degree distribution of directed graph
+    :param marker: distinguishing marker
+    :param label: label corresponding to the graph
+    :return:
+    '''
+    plt.xlabel('in-degrees')
+    plt.ylabel('Distribution')
+    plt.title('simple plot of in-degree distribution')
+    plt.plot(dist.keys(), dist.values(), linestyle='none',
+               marker=marker, markeredgecolor=color, label=label)
 
-plt.loglog(norm_in_deg_dist.keys(), norm_in_deg_dist.values(), basex=2, basey=2, linestyle='None',
-           marker='x', markeredgecolor='red', label='Citation Graph')
+
+
+citation_graph = citation.load_graph(citation.CITATION_URL)
+citation_dist = degrees.norm_in_deg_dist(citation_graph)
+create_loglog_plot(citation_dist, label='Citation')
+# create_simple_plot(citation_dist, label='Citation')
+
+rnd_er_dist = degrees.norm_in_deg_dist(rndgraph.generate_random_directed_graph(2700, 0.06))
+# create_simple_plot(rnd_er_dist, marker='o', color='blue', label='Random ER')
+create_loglog_plot(rnd_er_dist, marker='o', color='blue', label='Random ER')
 plt.legend(loc='upper right')
 plt.show()
 # print degrees.print_info(citation.citation_graph)
