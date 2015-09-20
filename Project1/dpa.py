@@ -109,8 +109,7 @@ def print_comparison(dig, dpaF, label='oDPA'):
                 break
             print label, len(dig), 'm =', m,
             newavg = print_gi(dpaF(len(dig), m))
-
-
+    return None
 
 # print_comparison(graph_util.EX_GRAPH0, DPA)
 # print_comparison(graph_util.EX_GRAPH0, newDPA, 'nDPA')
@@ -119,11 +118,21 @@ def print_comparison(dig, dpaF, label='oDPA'):
 # print_comparison(graph_util.EX_GRAPH2, DPA)
 # print_comparison(graph_util.EX_GRAPH2, newDPA, 'nDPA')
 
-import parse_graph as pg
-cg = pg.load_graph(pg.CITATION_URL)
-print_gi(cg)
-# dcg = DPA(len(cg), 15)
-# ndcg = newDPA(len(cg), 14)
-print_comparison(cg, newDPA, 'nDPA')
-print_comparison(cg, DPA)
+# import parse_graph as pg
+# cg = pg.load_graph(pg.CITATION_URL)
+# print_gi(cg)
+# # dcg = DPA(len(cg), 15)
+# # ndcg = newDPA(len(cg), 14)
+# print_comparison(cg, newDPA, 'nDPA')
+# print_comparison(cg, DPA)
 
+# Loaded graph with 27770 nodes
+# : Nodes 27770 avg out-degree 12.7032048974
+# Original graph : Nodes 27770 avg out-degree 12.7032048974
+# nDPA 27770 m = 12 : Nodes 27770 avg out-degree 11.3125315088
+# nDPA 27770 m = 13 : Nodes 27770 avg out-degree 12.1705797623
+# nDPA 27770 m = 14 : Nodes 27770 avg out-degree 13.0537990637
+# Original graph : Nodes 27770 avg out-degree 12.7032048974
+# oDPA 27770 m = 12 : Nodes 27770 avg out-degree 10.2599567879
+# oDPA 27770 m = 13 : Nodes 27770 avg out-degree 10.7741447605
+# oDPA 27770 m = 14 : Nodes 27770 avg out-degree 11.6871804105
