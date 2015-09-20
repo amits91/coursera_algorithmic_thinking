@@ -18,6 +18,7 @@ def create_loglog_plot(dist, marker='x', color='red', label=''):
     plt.xlabel('in-degrees')
     plt.ylabel('Distribution')
     plt.title('LogLog plot of in-degree distribution')
+    plt.grid(True)
     plt.loglog(dist.keys(), dist.values(), basex=2, basey=2, linestyle='None',
                marker=marker, markeredgecolor=color, label=label)
 
