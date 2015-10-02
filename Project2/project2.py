@@ -58,10 +58,12 @@ def cc_visited(ugraph):
     ccs = set([])
     while len(rem_nodes) > 0:
         inode = rem_nodes.pop()
+        # print inode
         wset = bfs_visited(ugraph, inode)
-        # print wset
+        # print 'visited', wset
         ccs.add(tuple(wset))
         rem_nodes.difference_update(wset)
-    return ccs
+        # print 'rem_nodes', rem_nodes
+    return list(ccs)
 
 print cc_visited(EX_GRAPH2)
