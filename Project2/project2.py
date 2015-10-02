@@ -3,30 +3,8 @@ Project 2: Algorithmic thinking
 '''
 __author__ = 'Amit Srivastava'
 
-import example_graphs as eg
+# import example_graphs as eg
 from collections import deque
-
-EX_GRAPH0 = {0: set([1, 2]),
-             1: set([]),
-             2: set([])}
-EX_GRAPH1 = {0: set([1, 4, 5]),
-             1: set([2, 6]),
-             2: set([3]),
-             3: set([0]),
-             4: set([1]),
-             5: set([2]),
-             6: set([])}
-EX_GRAPH2 = {0: set([1, 4, 5]),
-             1: set([2, 6]),
-             2: set([3, 7]),
-             3: set([7]),
-             4: set([1]),
-             5: set([2]),
-             6: set([]),
-             7: set([3]),
-             8: set([1, 2]),
-             9: set([0, 3, 4, 5, 6, 7])}
-
 
 def bfs_visited(ugraph, start_node):
     '''
@@ -118,4 +96,4 @@ def compute_resilience(ugraph, attack_order):
         res.append(largest_cc_size(ugraph))
     return res
 
-print compute_resilience(eg.GRAPH3, [1, 2])
+# print compute_resilience(eg.GRAPH3, [1, 2])
