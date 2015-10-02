@@ -28,6 +28,12 @@ EX_GRAPH2 = {0: set([1, 4, 5]),
 
 
 def bfs_visited(ugraph, start_node):
+    '''
+    BFS implementation
+    :param ugraph: Undirected Graph
+    :param start_node: start node
+    :return: set of visited nodes
+    '''
     visited = {start_node: True}
     queue = deque()
     queue.appendleft(start_node)
@@ -38,6 +44,24 @@ def bfs_visited(ugraph, start_node):
                 visited[hnode] = True
                 queue.appendleft(hnode)
     # print visited
-    return set(visited)
+    return set(visited.keys())
 
 # print bfs_visited(EX_GRAPH1, 1)
+
+def cc_visited(ugraph):
+    '''
+    CC visited
+    :param ugraph: Undirected Graph
+    :return: set of connected components
+    '''
+    rem_nodes = set(ugraph.keys())
+    ccs = set([])
+    while len(rem_nodes) > 0:
+        inode = rem_nodes.pop()
+        wset = bfs_visited(ugraph, inode)
+        # print wset
+        ccs.add(tuple(wset))
+        rem_nodes.difference_update(wset)
+    return ccs
+
+print cc_visited(EX_GRAPH2)
