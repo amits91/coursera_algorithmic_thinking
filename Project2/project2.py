@@ -83,4 +83,38 @@ def largest_cc_size(ugraph):
 
     return cc_size
 
-print largest_cc_size(EX_GRAPH2)
+# print largest_cc_size(EX_GRAPH2)
+
+def remove_node(ugraph, node):
+    '''
+    remove node from graph
+    :param ugraph:
+    :param node:
+    :return:
+    '''
+    print 'Node:', node
+    print ugraph[node]
+    if not ugraph.has_key(node):
+        return
+    for edge in ugraph[node]:
+        print 'Before', ugraph[edge]
+        # if node in ugraph[edge]:
+        ugraph[edge].discard(node)
+        print 'After', ugraph[edge]
+    ugraph.pop(node)
+    print ugraph
+
+def compute_resilience(ugraph, attack_order):
+    '''
+    resilience
+    :param ugraph:
+    :param attack_order: list of nodes
+    :return:
+    '''
+    res = [largest_cc_size(ugraph)]
+    for node in attack_order:
+        remove_node(ugraph, node)
+        res.append(largest_cc_size(ugraph))
+    return res
+
+print compute_resilience(EX_GRAPH2, [1, 2])
