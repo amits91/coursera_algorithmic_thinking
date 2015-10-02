@@ -3,6 +3,7 @@ Project 2: Algorithmic thinking
 '''
 __author__ = 'Amit Srivastava'
 
+import example_graphs as eg
 from collections import deque
 
 EX_GRAPH0 = {0: set([1, 2]),
@@ -117,4 +118,4 @@ def compute_resilience(ugraph, attack_order):
         res.append(largest_cc_size(ugraph))
     return res
 
-print compute_resilience(EX_GRAPH2, [1, 2])
+print compute_resilience(eg.GRAPH3, [1, 2])
