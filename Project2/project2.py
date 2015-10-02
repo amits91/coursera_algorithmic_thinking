@@ -66,4 +66,21 @@ def cc_visited(ugraph):
         # print 'rem_nodes', rem_nodes
     return ccs
 
-print cc_visited(EX_GRAPH2)
+# print cc_visited(EX_GRAPH2)
+def largest_cc_size(ugraph):
+    '''
+     Takes the undirected graph ugraph
+     and returns the size (an integer) of the
+      largest connected component in ugraph.
+    :param ugraph:
+    :return:
+    '''
+    cc_size = 0
+    ccs = cc_visited(ugraph)
+    for cci in ccs:
+        if len(cci) > cc_size:
+            cc_size = len(cci)
+
+    return cc_size
+
+print largest_cc_size(EX_GRAPH2)
