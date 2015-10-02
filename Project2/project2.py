@@ -55,15 +55,15 @@ def cc_visited(ugraph):
     :return: set of connected components
     '''
     rem_nodes = set(ugraph.keys())
-    ccs = set([])
+    ccs = []
     while len(rem_nodes) > 0:
         inode = rem_nodes.pop()
         # print inode
         wset = bfs_visited(ugraph, inode)
         # print 'visited', wset
-        ccs.add(tuple(wset))
+        ccs.append(wset)
         rem_nodes.difference_update(wset)
         # print 'rem_nodes', rem_nodes
-    return list(ccs)
+    return ccs
 
 print cc_visited(EX_GRAPH2)
