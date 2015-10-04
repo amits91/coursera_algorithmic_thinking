@@ -40,14 +40,15 @@ def compare_func(n):
     fast = fast_targeted_order(graph)
     diff = time.clock() - otime
     fasttime = diff
-    print 'Fast:', fast
+    # print 'Fast:', fast
     otime = time.clock()
     slow = provided.targeted_order(graph)
     diff = time.clock() - otime
-    print 'Slow:', slow
+    # print 'Slow:', slow
     slowtime = diff
     return (n, fasttime, slowtime)
 
+import matplotlib.pyplot as plt
 def main():
     x = []
     yfast = []
@@ -57,9 +58,18 @@ def main():
         x.append(n)
         yfast.append(times[1])
         yslow.append(times[2])
-    print x
-    print yfast
-    print yslow
+    plt.plot(x, yfast, '-b', label='fast_targeted_order')
+    plt.plot(x, yslow, '-r', label='targeted_order')
+    # ylinear = [i * yfast[0] for i in x]
+    # yquad = [ylinear[i] * ylinear[i] for i in range(len(x))]
+    # plt.loglog(x, ylinear, '-g', label='linear')
+    # plt.loglog(x, yquad, '-y', label='quad')
+    plt.legend(loc='upper right')
+    plt.xlabel('num of nodes n')
+    plt.ylabel('running time (time.clock())')
+    plt.title('Simple plot comparison of running times (desktop Python)')
+    plt.grid(True)
+    plt.show()
 
 if __name__ == '__main__':
     main()
