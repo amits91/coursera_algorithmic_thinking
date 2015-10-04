@@ -25,8 +25,6 @@ def bfs_visited(ugraph, start_node):
     # print visited
     return set(visited.keys())
 
-# print bfs_visited(EX_GRAPH1, 1)
-
 def cc_visited(ugraph):
     '''
     CC visited
@@ -45,7 +43,6 @@ def cc_visited(ugraph):
         # print 'rem_nodes', rem_nodes
     return ccs
 
-# print cc_visited(EX_GRAPH2)
 def largest_cc_size(ugraph):
     '''
      Takes the undirected graph ugraph
@@ -62,7 +59,6 @@ def largest_cc_size(ugraph):
 
     return cc_size
 
-# print largest_cc_size(EX_GRAPH2)
 
 def remove_node(ugraph, node):
     '''
@@ -71,17 +67,17 @@ def remove_node(ugraph, node):
     :param node:
     :return:
     '''
-    print 'Node:', node
-    print ugraph[node]
+    # print 'Node:', node
+    # print ugraph[node]
     if not ugraph.has_key(node):
         return
     for edge in ugraph[node]:
-        print 'Before', ugraph[edge]
+        # print 'Before', ugraph[edge]
         # if node in ugraph[edge]:
         ugraph[edge].discard(node)
         # print 'After', ugraph[edge]
     ugraph.pop(node)
-    print ugraph
+    # print ugraph
 
 def compute_resilience(ugraph, attack_order):
     '''
@@ -97,7 +93,11 @@ def compute_resilience(ugraph, attack_order):
     return res
 
 def main():
-    print compute_resilience(eg.GRAPH3, [1, 2])
+    graph = eg.GRAPH3
+    print 'BFS_visited:', bfs_visited(graph, 1)
+    print 'CC         :', cc_visited(graph)
+    print 'Largest CC :', largest_cc_size(graph)
+    print 'Resilience :', compute_resilience(graph, [1, 2])
 
 if __name__ == '__main__':
     main()
