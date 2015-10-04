@@ -17,7 +17,7 @@ def print_gi(graph):
     edges = 0
     for node in graph.keys():
         edges = edges + len(graph[node])
-    print ' Edges:', edges
+    print ' Edges:', edges/2
 
 cgraph = p.load_graph(p.NETWORK_URL)
 ergraph = u.generate_UER(1239, 0.002)
