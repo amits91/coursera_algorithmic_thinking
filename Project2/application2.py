@@ -34,10 +34,10 @@ def random_order(graph):
     random.shuffle(keys)
     return keys
 
-def print_compute_resilience(graph, style='-b', label='default'):
+def print_compute_resilience(graph, order_func=random_order, style='-b', label='default'):
     print_gi(graph)
     num_nodes = len(graph)
-    attack = random_order(graph)
+    attack = order_func(graph)
     cr = proj.compute_resilience(graph, attack)
     cx = range(num_nodes + 1)
     print '------------'
@@ -46,6 +46,10 @@ def print_compute_resilience(graph, style='-b', label='default'):
     print "Y:", cr
     print "X:", cx
     plt.plot(cx, cr, style, label=label)
+    # cx = range(num_nodes)
+    # percent_cc_vs_rem_nodes = [(cr[i] * 1.0)/(num_nodes - i) for i in cx]
+    # print percent_cc_vs_rem_nodes
+    # plt.plot(cx, percent_cc_vs_rem_nodes, style, label=label)
 
 def main():
     print 'Computer Node Graph'
@@ -54,12 +58,9 @@ def main():
     print_gi(ergraph)
     print 'Random UPA Graph'
     print_gi(upgraph)
-    # print_compute_resilience(eg.GRAPH0)
-    # print_compute_resilience(eg.GRAPH1)
-    # print_compute_resilience(eg.GRAPH3)
-    print_compute_resilience(cgraph, '-b', 'computer network')
-    print_compute_resilience(ergraph, '-r', 'ER(p=' + str(PROB) + ')')
-    print_compute_resilience(upgraph, '-g', 'UPA(m=' + str(M) + ')')
+    print_compute_resilience(cgraph , provided.targeted_order, '-b', 'computer network')
+    print_compute_resilience(ergraph, provided.targeted_order, '-r', 'ER(p=' + str(PROB) + ')')
+    print_compute_resilience(upgraph, provided.targeted_order, '-g', 'UPA(m=' + str(M) + ')')
     plt.xlabel('Number of nodes removed')
     plt.ylabel('Size of Largest Connect component')
     plt.title('Simple plot of resilience of undirected graphs')
