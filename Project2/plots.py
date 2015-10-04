@@ -17,4 +17,5 @@ def legend_example():
     plt.legend(loc='upper right')
     plt.show()
 
-legend_example()
+if __name__ == "__main__":
+    legend_example()

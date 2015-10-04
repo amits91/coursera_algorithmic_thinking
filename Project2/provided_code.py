@@ -70,7 +70,8 @@ def targeted_order(ugraph):
 ##########################################################
 # Code for loading computer network graph
 
-NETWORK_URL = "http://storage.googleapis.com/codeskulptor-alg/alg_rf7.txt"
+# NETWORK_URL = "http://storage.googleapis.com/codeskulptor-alg/alg_rf7.txt"
+NETWORK_URL = "docs/alg_rf7.txt"
 
 
 def load_graph(graph_url):
@@ -80,7 +81,8 @@ def load_graph(graph_url):
 
     Returns a dictionary that models a graph
     """
-    graph_file = urllib2.urlopen(graph_url)
+    # graph_file = urllib2.urlopen(graph_url)
+    graph_file = open(graph_url)
     graph_text = graph_file.read()
     graph_lines = graph_text.split('\n')
     graph_lines = graph_lines[ : -1]
@@ -97,3 +99,5 @@ def load_graph(graph_url):
 
     return answer_graph
 
+if __name__ == "__main__":
+    load_graph(NETWORK_URL)
