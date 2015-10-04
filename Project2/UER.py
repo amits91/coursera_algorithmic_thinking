@@ -26,5 +26,7 @@ def generate_UER(n, p):
                 graph[end].add(start)
     return graph
 
-if __name__ == "__main__":
+def main():
     print generate_UER(10, 0.1)
+if __name__ == "__main__":
+    main()
