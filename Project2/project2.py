@@ -3,7 +3,7 @@ Project 2: Algorithmic thinking
 '''
 __author__ = 'Amit Srivastava'
 
-# import example_graphs as eg
+import example_graphs as eg
 from collections import deque
 
 def bfs_visited(ugraph, start_node):
@@ -79,7 +79,7 @@ def remove_node(ugraph, node):
         print 'Before', ugraph[edge]
         # if node in ugraph[edge]:
         ugraph[edge].discard(node)
-        print 'After', ugraph[edge]
+        # print 'After', ugraph[edge]
     ugraph.pop(node)
     print ugraph
 
@@ -96,4 +96,8 @@ def compute_resilience(ugraph, attack_order):
         res.append(largest_cc_size(ugraph))
     return res
 
-# print compute_resilience(eg.GRAPH3, [1, 2])
+def main():
+    print compute_resilience(eg.GRAPH3, [1, 2])
+
+if __name__ == '__main__':
+    main()
