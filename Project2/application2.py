@@ -50,6 +50,7 @@ def print_compute_resilience(graph, order_func=random_order, style='-b', label='
     # percent_cc_vs_rem_nodes = [(cr[i] * 1.0)/(num_nodes - i) for i in cx]
     # print percent_cc_vs_rem_nodes
     # plt.plot(cx, percent_cc_vs_rem_nodes, style, label=label)
+    plt.scatter([0.2 * num_nodes, ],[0, ], 50, color='black')
 
 def main():
     print 'Computer Node Graph'
@@ -63,7 +64,7 @@ def main():
     print_compute_resilience(upgraph, provided.targeted_order, '-g', 'UPA(m=' + str(M) + ')')
     plt.xlabel('Number of nodes removed')
     plt.ylabel('Size of Largest Connect component')
-    plt.title('Simple plot of resilience of undirected graphs')
+    plt.title('Simple plot of resilience of undirected graphs (targeted order)')
     plt.grid(True)
     plt.legend(loc='upper right')
     plt.show()
