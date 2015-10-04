@@ -25,9 +25,9 @@ def print_gi(graph):
 
 PROB = 0.002
 M = 3
-cgraph = provided.load_graph(provided.NETWORK_URL)
-ergraph = u.generate_UER(1239, PROB)
-upgraph = upa.generate_UPA(1239, M)
+cgraph = provided.load_graph()
+ergraph = u.generate_UER(len(cgraph), PROB)
+upgraph = upa.generate_UPA(len(cgraph), M)
 
 def random_order(graph):
     keys = graph.keys()
@@ -39,11 +39,12 @@ def print_compute_resilience(graph, style='-b', label='default'):
     num_nodes = len(graph)
     attack = random_order(graph)
     cr = proj.compute_resilience(graph, attack)
-    print num_nodes
     cx = range(num_nodes + 1)
+    print '------------'
+    print label
+    print 'Random Nodes:', attack
     print "Y:", cr
     print "X:", cx
-    print label
     plt.plot(cx, cr, style, label=label)
 
 def main():
