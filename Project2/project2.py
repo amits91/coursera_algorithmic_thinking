@@ -93,7 +93,7 @@ def compute_resilience(ugraph, attack_order):
     return res
 
 def main():
-    graph = eg.GRAPH3
+    graph = eg.GRAPH4
     print 'BFS_visited:', bfs_visited(graph, 1)
     print 'CC         :', cc_visited(graph)
     print 'Largest CC :', largest_cc_size(graph)
