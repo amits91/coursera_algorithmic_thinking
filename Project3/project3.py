@@ -85,14 +85,17 @@ def closest_pair_strip(cluster_list, horiz_center, half_width):
             slist.append(clus)
     slist.sort(key = lambda cluster: cluster.vert_center())
     min_dist = (float("inf"), -1, -1)
-    for uidx in range(len(slist) - 2):
+    for uidx in range(len(slist) - 1):
         minv = min(uidx +3, len(slist) - 1)
-        for vidx in range(uidx + 1, minv):
+        for vidx in range(uidx + 1, minv + 1):
             dist = pair_distance(slist, uidx, vidx)
             min_dist = min(min_dist, dist)
     return min_dist
 
-
+print closest_pair_strip([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
+                     alg_cluster.Cluster(set([]), 1, 0, 1, 0),
+                     alg_cluster.Cluster(set([]), 2, 0, 1, 0),
+                     alg_cluster.Cluster(set([]), 3, 0, 1, 0)], 1.5, 1.0)
 
 ######################################################################
 # Code for hierarchical clustering
