@@ -1,4 +1,3 @@
-__author__ = 'amit'
 """
 Student template code for Project 3
 Student will implement five functions:
@@ -41,8 +40,14 @@ def slow_closest_pair(cluster_list):
     Output: tuple of the form (dist, idx1, idx2) where the centers of the clusters
     cluster_list[idx1] and cluster_list[idx2] have minimum distance dist.
     """
-
-    return ()
+    min_dist = (float("inf"), -1, -1)
+    for uidx in range(len(cluster_list)):
+        for vidx in range(len(cluster_list)):
+            if uidx == vidx:
+                continue
+            dist = pair_distance(cluster_list, uidx, vidx)
+            min_dist = min(min_dist, dist)
+    return min_dist
 
 
 
