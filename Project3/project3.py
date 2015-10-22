@@ -67,7 +67,7 @@ def fast_closest_pair(cluster_list):
         mid = int(math.ceil(len(cluster_list) / 2.0))
         leftd = fast_closest_pair(cluster_list[0 : mid])
         rightd = fast_closest_pair(cluster_list[mid :])
-        mind = min(leftd, rightd)
+        mind = min(leftd, (rightd[0], rightd[1] + mid, rightd[2] + mid))
         xm_1 = cluster_list[mid - 1].horiz_center()
         xmi = cluster_list[mid].horiz_center()
         midx = (xm_1 + xmi) / 2.0
