@@ -125,6 +125,7 @@ def hierarchical_clustering(cluster_list, num_clusters):
         mind = fast_closest_pair(cluster_list)
         cluster_list[mind[1]].merge_clusters(cluster_list[mind[2]])
         cluster_list.remove(cluster_list[mind[2]])
+        cluster_list.sort(key = lambda cluster: cluster.horiz_center())
     return cluster_list
 
 
