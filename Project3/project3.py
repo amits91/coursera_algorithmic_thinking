@@ -121,8 +121,11 @@ def hierarchical_clustering(cluster_list, num_clusters):
     Input: List of clusters, integer number of clusters
     Output: List of clusters whose length is num_clusters
     """
-
-    return []
+    while len(cluster_list) > num_clusters:
+        mind = fast_closest_pair(cluster_list)
+        cluster_list[mind[1]].merge_clusters(cluster_list[mind[2]])
+        cluster_list.remove(cluster_list[mind[2]])
+    return cluster_list
 
 
 ######################################################################
