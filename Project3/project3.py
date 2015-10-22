@@ -61,9 +61,22 @@ def fast_closest_pair(cluster_list):
     Output: tuple of the form (dist, idx1, idx2) where the centers of the clusters
     cluster_list[idx1] and cluster_list[idx2] have minimum distance dist.
     """
+    if len(cluster_list) <= 3:
+        mind = slow_closest_pair(cluster_list)
+    else:
+        mid = len(cluster_list) / 2
+        leftd = fast_closest_pair(cluster_list[0 : mid - 1])
+        rightd = fast_closest_pair(cluster_list[mid :])
+        mind = min(leftd, rightd)
+        xm_1 = cluster_list[mid - 1].horiz_center()
+        xmi = cluster_list[mid].horiz_center()
+        midx = (xm_1 + xmi) / 2.0
+        cps = closest_pair_strip(cluster_list, midx, mind[0])
+        mind = min(cps, mind)
+    return mind
 
-    return ()
-
+print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
+                   alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
 
 def closest_pair_strip(cluster_list, horiz_center, half_width):
     """
@@ -94,10 +107,10 @@ def closest_pair_strip(cluster_list, horiz_center, half_width):
             min_dist = min(min_dist, dist)
     return min_dist
 
-print closest_pair_strip([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
-                     alg_cluster.Cluster(set([]), 1, 0, 1, 0),
-                     alg_cluster.Cluster(set([]), 2, 0, 1, 0),
-                     alg_cluster.Cluster(set([]), 3, 0, 1, 0)], 1.5, 1.0)
+# print closest_pair_strip([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
+#                      alg_cluster.Cluster(set([]), 1, 0, 1, 0),
+#                      alg_cluster.Cluster(set([]), 2, 0, 1, 0),
+#                      alg_cluster.Cluster(set([]), 3, 0, 1, 0)], 1.5, 1.0)
 
 ######################################################################
 # Code for hierarchical clustering
