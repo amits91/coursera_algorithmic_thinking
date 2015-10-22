@@ -77,8 +77,20 @@ def closest_pair_strip(cluster_list, horiz_center, half_width):
     Output: tuple of the form (dist, idx1, idx2) where the centers of the clusters
     cluster_list[idx1] and cluster_list[idx2] lie in the strip and have minimum distance dist.
     """
-
-    return ()
+    slist = []
+    #cluster_list.sort(key = lambda cluster: cluster.horiz_center())
+    for idx in range(len(cluster_list)):
+        clus = cluster_list[idx]
+        if abs(clus.horiz_center() - horiz_center) < half_width:
+            slist.append(clus)
+    slist.sort(key = lambda cluster: cluster.vert_center())
+    min_dist = (float("inf"), -1, -1)
+    for uidx in range(len(slist) - 2):
+        minv = min(uidx +3, len(slist) - 1)
+        for vidx in range(uidx + 1, minv):
+            dist = pair_distance(slist, uidx, vidx)
+            min_dist = min(min_dist, dist)
+    return min_dist
 
 
 
