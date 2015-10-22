@@ -18,8 +18,8 @@ import alg_cluster
 
 # conditional imports
 if DESKTOP:
-    import alg_project3_solution      # desktop project solution
-    import alg_clusters_matplotlib
+    import project3 as alg_project3_solution      # desktop project solution
+    import cluster_plotter as alg_clusters_matplotlib
 else:
     #import userXX_XXXXXXXX as alg_project3_solution   # CodeSkulptor project solution
     import alg_clusters_simplegui
