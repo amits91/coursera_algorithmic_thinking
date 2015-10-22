@@ -79,8 +79,10 @@ def closest_pair_strip(cluster_list, horiz_center, half_width):
     """
     slist = []
     #cluster_list.sort(key = lambda cluster: cluster.horiz_center())
+    idd = {}
     for idx in range(len(cluster_list)):
         clus = cluster_list[idx]
+        idd[clus] = idx
         if abs(clus.horiz_center() - horiz_center) < half_width:
             slist.append(clus)
     slist.sort(key = lambda cluster: cluster.vert_center())
@@ -88,7 +90,7 @@ def closest_pair_strip(cluster_list, horiz_center, half_width):
     for uidx in range(len(slist) - 1):
         minv = min(uidx +3, len(slist) - 1)
         for vidx in range(uidx + 1, minv + 1):
-            dist = pair_distance(slist, uidx, vidx)
+            dist = pair_distance(cluster_list, idd[slist[uidx]], idd[slist[vidx]])
             min_dist = min(min_dist, dist)
     return min_dist
 
