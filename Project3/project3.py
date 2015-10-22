@@ -64,8 +64,8 @@ def fast_closest_pair(cluster_list):
     if len(cluster_list) <= 3:
         mind = slow_closest_pair(cluster_list)
     else:
-        mid = len(cluster_list) / 2
-        leftd = fast_closest_pair(cluster_list[0 : mid - 1])
+        mid = int(math.ceil(len(cluster_list) / 2.0))
+        leftd = fast_closest_pair(cluster_list[0 : mid])
         rightd = fast_closest_pair(cluster_list[mid :])
         mind = min(leftd, rightd)
         xm_1 = cluster_list[mid - 1].horiz_center()
@@ -74,9 +74,6 @@ def fast_closest_pair(cluster_list):
         cps = closest_pair_strip(cluster_list, midx, mind[0])
         mind = min(cps, mind)
     return mind
-
-print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
-                   alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
 
 def closest_pair_strip(cluster_list, horiz_center, half_width):
     """
@@ -144,4 +141,13 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
     # position initial clusters at the location of clusters with largest populations
 
     return []
+
+print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
+                         alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
+
+print fast_closest_pair([alg_cluster.Cluster(set([]), 0.32, 0.16, 1, 0),
+                         alg_cluster.Cluster(set([]), 0.39, 0.4, 1, 0),
+                         alg_cluster.Cluster(set([]), 0.54, 0.8, 1, 0),
+                         alg_cluster.Cluster(set([]), 0.61, 0.8, 1, 0),
+                         alg_cluster.Cluster(set([]), 0.76, 0.94, 1, 0)])
 
