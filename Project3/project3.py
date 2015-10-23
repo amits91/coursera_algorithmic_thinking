@@ -143,8 +143,22 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
     """
 
     # position initial clusters at the location of clusters with largest populations
-
-    return []
+    cluster_list.sort(key = lambda cluster: cluster.total_population(), reverse=True)
+    ucls = []
+    for idk in range(num_clusters):
+        cls = cluster_list[idk]
+        ucls.insert(cls.copy())
+        # ucls.insert(alg_cluster.Cluster(set([]), cls.horiz_center(), cls.vert_center(), 0, 0))
+    for idx in range(num_iterations):
+        for idj in range(len(cluster_list)):
+            clj = cluster_list[idj]
+            ldist = float("inf")
+            for idf in range(num_clusters):
+                dist = clj.distance(ucls[idf])
+                if dist < ldist:
+                    lidx = idf
+            ucls[lidx].merge_clusters(clj)
+    return ucls
 
 print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
                          alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
