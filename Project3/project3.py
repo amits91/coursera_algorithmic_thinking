@@ -150,14 +150,21 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
         ucls.append(cls.copy())
         # ucls.insert(alg_cluster.Cluster(set([]), cls.horiz_center(), cls.vert_center(), 0, 0))
     for dummy_idx in range(num_iterations):
+        vcls = []
+        for idk in range(num_clusters):
+            cls = ucls[idk]
+            vcls.append(cls.copy())
         for idj in range(len(cluster_list)):
             clj = cluster_list[idj]
             ldist = float("inf")
             for idf in range(num_clusters):
-                dist = clj.distance(ucls[idf])
+                dist = clj.distance(vcls[idf])
                 if dist < ldist:
                     lidx = idf
-            ucls[lidx].merge_clusters(clj)
+            vcls[lidx].merge_clusters(clj)
+        for idk in range(num_clusters):
+            cls = vcls[idk]
+            vcls[idk] = cls
     return ucls
 
 print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
