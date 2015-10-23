@@ -164,7 +164,7 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
             vcls[lidx].merge_clusters(clj)
         for idk in range(num_clusters):
             cls = vcls[idk]
-            vcls[idk] = cls
+            ucls[idk] = cls
     return ucls
 
 print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
