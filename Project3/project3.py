@@ -147,9 +147,9 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
     ucls = []
     for idk in range(num_clusters):
         cls = cluster_list[idk]
-        ucls.insert(cls.copy())
+        ucls.append(cls.copy())
         # ucls.insert(alg_cluster.Cluster(set([]), cls.horiz_center(), cls.vert_center(), 0, 0))
-    for idx in range(num_iterations):
+    for dummy_idx in range(num_iterations):
         for idj in range(len(cluster_list)):
             clj = cluster_list[idj]
             ldist = float("inf")
