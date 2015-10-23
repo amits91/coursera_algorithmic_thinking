@@ -160,8 +160,9 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
         for idj in range(len(cluster_list)):
             clj = cluster_list[idj]
             ldist = float("inf")
+            lidx = num_clusters
             for idf in range(num_clusters):
-                dist = clj.distance(vcls[idf])
+                dist = clj.distance(ucls[idf])
                 if dist < ldist:
                     lidx = idf
                     ldist = dist
