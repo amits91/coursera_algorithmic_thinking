@@ -88,6 +88,12 @@ def sequential_clustering(singleton_list, num_clusters):
 # Code to load cancer data, compute a clustering and
 # visualize the results
 
+def compute_distortion(cluster_list, data_table):
+    dist = 0
+    for i in range(len(cluster_list)):
+        clus = cluster_list[i]
+        dist = dist + clus.cluster_error(data_table)
+    return dist
 
 def run_example():
     """
@@ -96,7 +102,7 @@ def run_example():
 
     Set DESKTOP = True/False to use either matplotlib or simplegui
     """
-    data_table = load_data_table(DATA_111_URL)
+    data_table = load_data_table(DATA_290_URL)
 
     singleton_list = []
     for line in data_table:
@@ -105,11 +111,13 @@ def run_example():
     # cluster_list = sequential_clustering(singleton_list, 15)
     # print "Displaying", len(cluster_list), "sequential clusters"
 
-    # cluster_list = alg_project3_solution.hierarchical_clustering(singleton_list, 9)
-    # print "Displaying", len(cluster_list), "hierarchical clusters"
+    cluster_list = alg_project3_solution.hierarchical_clustering(singleton_list, 16)
+    print "Displaying", len(cluster_list), "hierarchical clusters"
+    print "distortion", compute_distortion(cluster_list, data_table)
 
-    cluster_list = alg_project3_solution.kmeans_clustering(singleton_list, 9, 5)
-    print "Displaying", len(cluster_list), "k-means clusters"
+    # cluster_list = alg_project3_solution.kmeans_clustering(singleton_list, 16, 5)
+    # print "Displaying", len(cluster_list), "k-means clusters"
+    # print "distortion", compute_distortion(cluster_list, data_table)
 
 
     # draw the clusters using matplotlib or simplegui
