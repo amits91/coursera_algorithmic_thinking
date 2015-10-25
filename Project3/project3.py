@@ -172,12 +172,15 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
             ucls[idx] = vcls[idx]
     return ucls
 
-print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
-                         alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
+def main():
+    print fast_closest_pair([alg_cluster.Cluster(set([]), 0, 0, 1, 0),
+                             alg_cluster.Cluster(set([]), 1, 0, 1, 0)])
 
-print fast_closest_pair([alg_cluster.Cluster(set([]), 0.32, 0.16, 1, 0),
-                         alg_cluster.Cluster(set([]), 0.39, 0.4, 1, 0),
-                         alg_cluster.Cluster(set([]), 0.54, 0.8, 1, 0),
-                         alg_cluster.Cluster(set([]), 0.61, 0.8, 1, 0),
-                         alg_cluster.Cluster(set([]), 0.76, 0.94, 1, 0)])
+    print fast_closest_pair([alg_cluster.Cluster(set([]), 0.32, 0.16, 1, 0),
+                             alg_cluster.Cluster(set([]), 0.39, 0.4, 1, 0),
+                             alg_cluster.Cluster(set([]), 0.54, 0.8, 1, 0),
+                             alg_cluster.Cluster(set([]), 0.61, 0.8, 1, 0),
+                             alg_cluster.Cluster(set([]), 0.76, 0.94, 1, 0)])
+if __name__ == '__main__':
+    main()
 
