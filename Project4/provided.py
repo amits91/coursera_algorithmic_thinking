@@ -127,7 +127,7 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
         rand_y = ''.join(l)
         am = student.compute_alignment_matrix(seq_x, rand_y, scoring_matrix, False)
         las = student.compute_local_alignment(seq_x, rand_y, scoring_matrix, am)
-        score = las[1]
+        score = las[0]
         if sdist.has_key(score):
             sdist[score] = sdist[score] + 1
         else:
@@ -136,4 +136,4 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
 
 disthf = generate_null_distribution(hseq, fseq, pm50, 1000)
 
-print disthf
+print 'Dist', disthf
