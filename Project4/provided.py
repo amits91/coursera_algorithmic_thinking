@@ -121,8 +121,9 @@ print 'Percentage Agree Fruitfly:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.
 
 def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
     sdist = { }
+    l = list(seq_y)
     for i in range(num_trials):
-        l = list(seq_y)
+        # l = list(seq_y)
         random.shuffle(l)
         rand_y = ''.join(l)
         am = student.compute_alignment_matrix(seq_x, rand_y, scoring_matrix, False)
