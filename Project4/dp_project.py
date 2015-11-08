@@ -52,5 +52,33 @@ def print_sm(mat):
         print
 
 # print_sm({'1': {'2':4}})
-print_sm(build_scoring_matrix('abc', 10, 4, -4))
-print_sm(build_scoring_matrix('ACTG', 10, 4, -4))
+# print_sm(build_scoring_matrix('abc', 10, 4, -4))
+# print_sm(build_scoring_matrix('ACTG', 10, 4, -4))
+
+def compute_alignment_matrix(seq_x, seq_y, scoring_matrix, global_flag):
+    '''
+    :param seq_x:
+    :param seq_y:
+    :param scoring_matrix:
+    :param global_flag:
+    :return:
+    '''
+    mval = len(seq_x) + 1
+    nval = len(seq_y) + 1
+    align_mat = [[-1 for dummy_col in range(nval)] for dummy_row in range(mval)]
+    align_mat[0][0] = 0
+    for idx in range(1, mval):
+        align_mat[idx][0] = align_mat[idx - 1][0] + scoring_matrix[seq_x[idx - 1]]['-']
+    for idx in range(1, nval):
+        align_mat[0][idx] = align_mat[0][idx - 1] + scoring_matrix['-'][seq_y[idx - 1]]
+    for idx in range(1, mval):
+        for jdx in range(1, nval):
+            val = max(align_mat[idx - 1][jdx] + scoring_matrix[seq_x[idx - 1]]['-'], align_mat[idx][jdx - 1] + scoring_matrix['-'][seq_y[jdx - 1]])
+            align_mat[idx][jdx] =  max(align_mat[idx - 1][jdx - 1] + scoring_matrix[seq_x[idx - 1]][seq_y[jdx - 1]], val)
+
+    return align_mat
+
+print  [[0, -4, -8, -12], [-4, 6, 2, -2], [-8, 2, 8, 4], [-12, -2, 4, 14]]
+print compute_alignment_matrix('ATG', 'ACG', {'A': {'A': 6, 'C': 2, '-': -4, 'T': 2, 'G': 2}, 'C': {'A': 2, 'C': 6, '-': -4, 'T': 2, 'G': 2}, '-': {'A': -4, 'C': -4, '-': -4, 'T': -4, 'G': -4}, 'T': {'A': 2, 'C': 2, '-': -4, 'T': 6, 'G': 2}, 'G': {'A': 2, 'C': 2, '-': -4, 'T': 2, 'G': 6}}, True)
+# print compute_alignment_matrix('ACT', 'ACCG', build_scoring_matrix('ACGT', 10, 4, -4), False)
+
