@@ -38,18 +38,18 @@ def create_simple_plot(dist, marker='x', color='red', label=''):
 
 
 
-# citation_graph = citation.load_graph(citation.CITATION_URL)
-# citation_dist = degrees.norm_in_deg_dist(citation_graph)
-#
-# create_loglog_plot(citation_dist, label='Citation')
-# # create_simple_plot(citation_dist, label='Citation')
+citation_graph = citation.load_graph(citation.CITATION_URL)
+citation_dist = degrees.norm_in_deg_dist(citation_graph)
+
+create_loglog_plot(citation_dist, label='Citation')
+# create_simple_plot(citation_dist, label='Citation')
 
 # rnd_er_dist = degrees.norm_in_deg_dist(rndgraph.generate_random_directed_graph(2700, 0.06))
 # # create_simple_plot(rnd_er_dist, marker='o', color='blue', label='Random ER')
 # create_loglog_plot(rnd_er_dist, marker='o', color='blue', label='Random ER')
 
 dpa_dist = degrees.norm_in_deg_dist(dpa.newDPA(27770, 14))
-create_loglog_plot(dpa_dist, marker='+', color='green', label='DPA graph')
+create_loglog_plot(dpa_dist, marker='.', color='green', label='DPA graph')
 
 # dpa_dist = degrees.norm_in_deg_dist(dpa.DPA(27770, 14))
 # create_loglog_plot(dpa_dist, marker='x', color='blue', label='old DPA graph')

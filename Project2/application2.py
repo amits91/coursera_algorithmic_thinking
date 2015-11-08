@@ -23,7 +23,7 @@ def print_gi(graph):
         edges = edges + len(graph[node])
     print ' Edges:', edges/2
 
-PROB = 0.002
+PROB = 0.004
 M = 3
 cgraph = provided.load_graph()
 ergraph = u.generate_UER(len(cgraph), PROB)

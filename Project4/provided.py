@@ -82,42 +82,10 @@ def read_words(filename):
     print "Loaded a dictionary with", len(word_list), "words"
     return word_list
 
-hseq = read_protein(HUMAN_EYELESS_URL)
-fseq = read_protein(FRUITFLY_EYELESS_URL)
-pm50 = read_scoring_matrix(PAM50_URL)
-
-am50 = student.compute_alignment_matrix(hseq, fseq, pm50, False)
-res = student.compute_local_alignment(hseq, fseq, pm50, am50 )
-
 def print_res(res, label):
     print "Score:", res[0]
     print label[0], res[1]
     print label[1], res[2]
-
-print_res(res,["Human   :", "Fruitfly:"])
-
-cpax = read_protein(CONSENSUS_PAX_URL)
-# print 'cpax:', cpax
-hdseq = res[1].replace('-', '')
-# print 'h no d:', hdseq
-amhc = student.compute_alignment_matrix(hdseq, cpax, pm50, True)
-gah = student.compute_global_alignment(hdseq, cpax, pm50, amhc)
-# gah = student.compute_global_alignment(cpax, hdseq, pm50, am50)
-print_res(gah,["Human:", "CPAX :"])
-dashh = gah[1].count('-')
-dashc = gah[2].count('-')
-print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
-
-print 'Percentage Agree Human:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
-fdseq = res[2].replace('-', '')
-amfc = student.compute_alignment_matrix(fdseq, cpax, pm50, True)
-gaf = student.compute_global_alignment(fdseq, cpax, pm50, amfc)
-print_res(gaf,["Fruitfly:", "CPAX    :"])
-dashh = gaf[1].count('-')
-dashc = gaf[2].count('-')
-print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
-
-print 'Percentage Agree Fruitfly:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
 
 def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
     sdist = { }
@@ -135,33 +103,68 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
             sdist[score] = 1
     return sdist
 
-num_trials = 1000
-dist = generate_null_distribution(hseq, fseq, pm50, num_trials)
-disthf = {}
-for i in dist.keys():
-    disthf[i] = (dist[i] * 1.0) / num_trials
-print 'Unnormalized Dist:', dist
-print 'Normalized Dist:', disthf
+def part_one():
+    hseq = read_protein(HUMAN_EYELESS_URL)
+    fseq = read_protein(FRUITFLY_EYELESS_URL)
+    pm50 = read_scoring_matrix(PAM50_URL)
 
-sum = 0
-for i in dist.keys():
-    sum = dist[i] + sum
-mean = (sum * 1.0) / len(dist)
-sd = 0.0
-for i in dist.keys():
-    sd = math.pow(dist[i] - mean, 2) + sd
+    am50 = student.compute_alignment_matrix(hseq, fseq, pm50, False)
+    res = student.compute_local_alignment(hseq, fseq, pm50, am50 )
+    print_res(res,["Human   :", "Fruitfly:"])
 
-sdv = math.sqrt((sd  * 1.0)/len(dist))
-print "s:", res[0]
-print "Mean:", mean
-print "Standard Deviation:", sdv
-print "z-score:", (res[0] - mean)/sdv
+    cpax = read_protein(CONSENSUS_PAX_URL)
+    # print 'cpax:', cpax
+    hdseq = res[1].replace('-', '')
+    # print 'h no d:', hdseq
+    amhc = student.compute_alignment_matrix(hdseq, cpax, pm50, True)
+    gah = student.compute_global_alignment(hdseq, cpax, pm50, amhc)
+    # gah = student.compute_global_alignment(cpax, hdseq, pm50, am50)
+    print_res(gah,["Human:", "CPAX :"])
+    dashh = gah[1].count('-')
+    dashc = gah[2].count('-')
+    print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
+
+    print 'Percentage Agree Human:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
+    fdseq = res[2].replace('-', '')
+    amfc = student.compute_alignment_matrix(fdseq, cpax, pm50, True)
+    gaf = student.compute_global_alignment(fdseq, cpax, pm50, amfc)
+    print_res(gaf,["Fruitfly:", "CPAX    :"])
+    dashh = gaf[1].count('-')
+    dashc = gaf[2].count('-')
+    print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
+
+    print 'Percentage Agree Fruitfly:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
 
 
-plt.bar(disthf.keys(), disthf.values(), label='statistical hypothesis')
-plt.xlabel('Scores')
-plt.ylabel('Fraction of trails')
-plt.title('Normalized distribution of generate_null_distribution')
-plt.grid(True)
-# plt.legend(loc='upper right')
-plt.show()
+    num_trials = 100
+    dist = generate_null_distribution(hseq, fseq, pm50, num_trials)
+    disthf = {}
+    for i in dist.keys():
+        disthf[i] = (dist[i] * 1.0) / num_trials
+    print 'Unnormalized Dist:', dist
+    print 'Normalized Dist:', disthf
+
+    sum = 0
+    for i in dist.keys():
+        sum = dist[i] + sum
+    mean = (sum * 1.0) / len(dist)
+    sd = 0.0
+    for i in dist.keys():
+        sd = math.pow(dist[i] - mean, 2) + sd
+
+    sdv = math.sqrt((sd  * 1.0)/len(dist))
+    print "s:", res[0]
+    print "Mean:", mean
+    print "Standard Deviation:", sdv
+    print "z-score:", (res[0] - mean)/sdv
+
+
+    plt.bar(disthf.keys(), disthf.values(), label='statistical hypothesis')
+    plt.xlabel('Scores')
+    plt.ylabel('Fraction of trails')
+    plt.title('Normalized distribution of generate_null_distribution')
+    plt.grid(True)
+    # plt.legend(loc='upper right')
+    plt.show()
+
+part_one()
