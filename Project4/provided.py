@@ -135,7 +135,7 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
             sdist[score] = 1
     return sdist
 
-num_trials = 10
+num_trials = 1000
 dist = generate_null_distribution(hseq, fseq, pm50, num_trials)
 disthf = {}
 for i in dist.keys():
