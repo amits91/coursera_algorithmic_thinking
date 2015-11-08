@@ -13,7 +13,7 @@ def build_scoring_matrix(alphabet, diag_score, off_diag_score, dash_score):
     :return: dictionary of dictionary: scoring_matrix[row_char][col_char], E U {'-'}
     '''
     scoring_matrix = { }
-    scoring_matrix['-'] = {'-': 2 * dash_score}
+    scoring_matrix['-'] = {'-': dash_score}
     for cols in alphabet:
         scoring_matrix[cols] = {'-': dash_score}
     for cols in alphabet:
@@ -27,7 +27,11 @@ def build_scoring_matrix(alphabet, diag_score, off_diag_score, dash_score):
     return scoring_matrix
 
 def print_sm(mat):
-    print mat
+    '''
+    :param mat:
+    :return:
+    '''
+    # print mat
     print '  :',
     for data in sorted(mat.keys()):
         print '  ', data,
