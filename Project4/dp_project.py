@@ -93,3 +93,43 @@ print  [[0, -4, -8, -12], [-4, 6, 2, -2], [-8, 2, 8, 4], [-12, -2, 4, 14]]
 print compute_alignment_matrix('ATG', 'ACG', {'A': {'A': 6, 'C': 2, '-': -4, 'T': 2, 'G': 2}, 'C': {'A': 2, 'C': 6, '-': -4, 'T': 2, 'G': 2}, '-': {'A': -4, 'C': -4, '-': -4, 'T': -4, 'G': -4}, 'T': {'A': 2, 'C': 2, '-': -4, 'T': 6, 'G': 2}, 'G': {'A': 2, 'C': 2, '-': -4, 'T': 2, 'G': 6}}, True)
 # print compute_alignment_matrix('ACT', 'ACCG', build_scoring_matrix('ACGT', 10, 4, -4), False)
 
+def compute_global_alignment(seq_x, seq_y, scoring_matrix, align_mat):
+    '''
+
+    :param seq_x:
+    :param seq_y:
+    :param scoring_matrix:
+    :param alignment_matrix:
+    :return:
+    '''
+
+    idx = len(seq_x)
+    jdx = len(seq_y)
+    aseq_x = ''
+    aseq_y = ''
+    while idx != 0 and jdx != 0:
+        if align_mat[idx][jdx] == align_mat[idx - 1][jdx - 1] + scoring_matrix[seq_x[idx - 1]][seq_y[jdx - 1]]:
+            aseq_x = seq_x[idx - 1] + aseq_x
+            aseq_y = seq_y[jdx - 1] + aseq_y
+            idx = idx - 1
+            jdx = jdx - 1
+        else:
+            if align_mat[idx][jdx] == align_mat[idx - 1][jdx] + scoring_matrix[seq_x[idx - 1]]['-']:
+                aseq_x = seq_x[idx - 1] + aseq_x
+                aseq_y = '-' + aseq_y
+                idx = idx - 1
+            else:
+                aseq_x = '-' + aseq_x
+                aseq_y = seq_y[jdx - 1] + aseq_y
+                jdx = jdx - 1
+    while idx != 0:
+        aseq_x = seq_x[idx - 1] + aseq_x
+        aseq_y = '-' + aseq_y
+        idx = idx - 1
+    while jdx != 0:
+        aseq_x = '-' + aseq_x
+        aseq_y = seq_y[jdx - 1] + aseq_y
+        jdx = jdx - 1
+
+    return (align_mat[len(seq_x)][len(seq_y)], aseq_x, aseq_y)
+
