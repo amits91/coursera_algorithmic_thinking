@@ -104,7 +104,36 @@ amhc = student.compute_alignment_matrix(hdseq, cpax, pm50, True)
 gah = student.compute_global_alignment(hdseq, cpax, pm50, amhc)
 # gah = student.compute_global_alignment(cpax, hdseq, pm50, am50)
 print_res(gah,["Human:", "CPAX :"])
+dashh = gah[1].count('-')
+dashc = gah[2].count('-')
+print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
+
+print 'Percentage Agree Human:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
 fdseq = res[2].replace('-', '')
 amfc = student.compute_alignment_matrix(fdseq, cpax, pm50, True)
 gaf = student.compute_global_alignment(fdseq, cpax, pm50, amfc)
 print_res(gaf,["Fruitfly:", "CPAX    :"])
+dashh = gaf[1].count('-')
+dashc = gaf[2].count('-')
+print "dash h:", dashh, 'dashc:', dashc, 'lenh:', len(gah[1]), 'lenc:', len(gah[2])
+
+print 'Percentage Agree Fruitfly:', 100 * (((len(gah[1]) - (dashh + dashc)) * 1.0)/len(gah[1])),"%"
+
+def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
+    sdist = { }
+    for i in range(num_trials):
+        l = list(seq_y)
+        random.shuffle(l)
+        rand_y = ''.join(l)
+        am = student.compute_alignment_matrix(seq_x, rand_y, scoring_matrix, False)
+        las = student.compute_local_alignment(seq_x, rand_y, scoring_matrix, am)
+        score = las[1]
+        if sdist.has_key(score):
+            sdist[score] = sdist[score] + 1
+        else:
+            sdist[score] = 1
+    return sdist
+
+disthf = generate_null_distribution(hseq, fseq, pm50, 1000)
+
+print disthf
