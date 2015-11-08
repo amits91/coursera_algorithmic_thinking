@@ -132,8 +132,18 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
             sdist[score] = sdist[score] + 1
         else:
             sdist[score] = 1
+    for i in sdist.keys():
+        sdist[i] = (sdist[i] * 1.0) / num_trials
     return sdist
 
-disthf = generate_null_distribution(hseq, fseq, pm50, 1000)
-
+disthf = generate_null_distribution(hseq, fseq, pm50, 10)
 print 'Dist', disthf
+
+plt.bar(disthf.keys(), disthf.values())
+plt.xlabel('Scores')
+plt.ylabel('Fraction of trails')
+plt.title('Normalized distribution of generate_null_distribution')
+plt.grid(True)
+plt.legend(loc='upper right')
+plt.show()
+
