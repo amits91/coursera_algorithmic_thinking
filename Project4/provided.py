@@ -10,7 +10,7 @@ import urllib2
 
 if DESKTOP:
     import matplotlib.pyplot as plt
-    import alg_project4_solution as student
+    import dp_project as student
 else:
     import simpleplot
     import userXX_XXXXXXX as student
@@ -50,9 +50,6 @@ def read_scoring_matrix(filename):
             scoring_dict[xkey][ykey] = int(val)
     return scoring_dict
 
-
-
-
 def read_protein(filename):
     """
     Read a protein sequence from the file named filename.
@@ -67,7 +64,6 @@ def read_protein(filename):
     protein_seq = protein_file.read()
     protein_seq = protein_seq.rstrip()
     return protein_seq
-
 
 def read_words(filename):
     """
@@ -86,6 +82,14 @@ def read_words(filename):
     print "Loaded a dictionary with", len(word_list), "words"
     return word_list
 
+hseq = read_protein(HUMAN_EYELESS_URL)
+fseq = read_protein(FRUITFLY_EYELESS_URL)
+pm50 = read_scoring_matrix(PAM50_URL)
 
+am50 = student.compute_alignment_matrix(hseq, fseq, pm50, False)
+res = student.compute_local_alignment(hseq, fseq, pm50, am50 )
 
+print "Score:", res[0]
+print "Human   :", res[1]
+print "Fruitfly:", res[2]
 
