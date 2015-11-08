@@ -89,8 +89,8 @@ def compute_alignment_matrix(seq_x, seq_y, scoring_matrix, global_flag):
 
     return align_mat
 
-print  [[0, -4, -8, -12], [-4, 6, 2, -2], [-8, 2, 8, 4], [-12, -2, 4, 14]]
-print compute_alignment_matrix('ATG', 'ACG', {'A': {'A': 6, 'C': 2, '-': -4, 'T': 2, 'G': 2}, 'C': {'A': 2, 'C': 6, '-': -4, 'T': 2, 'G': 2}, '-': {'A': -4, 'C': -4, '-': -4, 'T': -4, 'G': -4}, 'T': {'A': 2, 'C': 2, '-': -4, 'T': 6, 'G': 2}, 'G': {'A': 2, 'C': 2, '-': -4, 'T': 2, 'G': 6}}, True)
+# print  [[0, -4, -8, -12], [-4, 6, 2, -2], [-8, 2, 8, 4], [-12, -2, 4, 14]]
+# print compute_alignment_matrix('ATG', 'ACG', {'A': {'A': 6, 'C': 2, '-': -4, 'T': 2, 'G': 2}, 'C': {'A': 2, 'C': 6, '-': -4, 'T': 2, 'G': 2}, '-': {'A': -4, 'C': -4, '-': -4, 'T': -4, 'G': -4}, 'T': {'A': 2, 'C': 2, '-': -4, 'T': 6, 'G': 2}, 'G': {'A': 2, 'C': 2, '-': -4, 'T': 2, 'G': 6}}, True)
 # print compute_alignment_matrix('ACT', 'ACCG', build_scoring_matrix('ACGT', 10, 4, -4), False)
 
 def compute_global_alignment(seq_x, seq_y, scoring_matrix, align_mat):
@@ -202,3 +202,21 @@ def compute_local_alignment(seq_x, seq_y, scoring_matrix, align_mat):
             jdx = jdx - 1
 
     return (max_val, aseq_x, aseq_y)
+
+def edit_distance(ab, seq_x, seq_y, sc):
+    m = len(seq_x)
+    n = len(seq_y)
+    sm = build_scoring_matrix(ab, sc[0], sc[1], sc[2])
+    am = compute_alignment_matrix(seq_x, seq_y, sm, True)
+    score = compute_global_alignment(seq_x, seq_y, sm, am)
+    print m + n, score, 'ED:', m + n - score[0]
+
+sc = [2, 1, 0]
+
+alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+edit_distance(alph, 'ABCD', 'ABCC', sc)
+edit_distance(alph, 'ABD', 'AB', sc)
+edit_distance(alph, 'ABC', 'DBC', sc)
+edit_distance(alph, 'ABCD', 'BACD', sc)
+edit_distance(alph, 'BCADEFG', 'A', sc)
+edit_distance(alph, 'BCADEFG', 'ABC', sc)
