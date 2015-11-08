@@ -209,14 +209,28 @@ def edit_distance(ab, seq_x, seq_y, sc):
     sm = build_scoring_matrix(ab, sc[0], sc[1], sc[2])
     am = compute_alignment_matrix(seq_x, seq_y, sm, True)
     score = compute_global_alignment(seq_x, seq_y, sm, am)
-    print m + n, score, 'ED:', m + n - score[0]
+    ed = m + n - score[0]
+    # print m + n, score, 'ED:', ed
+    return ed
 
 sc = [2, 1, 0]
 
-alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-edit_distance(alph, 'ABCD', 'ABCC', sc)
-edit_distance(alph, 'ABD', 'AB', sc)
-edit_distance(alph, 'ABC', 'DBC', sc)
-edit_distance(alph, 'ABCD', 'BACD', sc)
-edit_distance(alph, 'BCADEFG', 'A', sc)
-edit_distance(alph, 'BCADEFG', 'ABC', sc)
+# alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+# edit_distance(alph, 'ABCD', 'ABCC', sc)
+# edit_distance(alph, 'ABD', 'AB', sc)
+# edit_distance(alph, 'ABC', 'DBC', sc)
+# edit_distance(alph, 'ABCD', 'BACD', sc)
+# edit_distance(alph, 'BCADEFG', 'A', sc)
+# edit_distance(alph, 'BCADEFG', 'ABC', sc)
+
+def check_spelling(checked_word, dist, word_list):
+    res = set()
+    sc = [2, 1, 0]
+    alphs = 'abcdefghijklmnopqrstuvwxyz'
+    for word in word_list:
+        ed = edit_distance(alphs, checked_word, word, sc)
+        if ed <= dist:
+            res.add(word)
+
+    return res
+

@@ -167,4 +167,9 @@ def part_one():
     # plt.legend(loc='upper right')
     plt.show()
 
-part_one()
+# part_one()
+
+word_list = read_words(WORD_LIST_URL)
+
+print student.check_spelling('humble', 1, word_list)
+print student.check_spelling('firefly', 2, word_list)
