@@ -143,6 +143,21 @@ for i in dist.keys():
 print 'Unnormalized Dist:', dist
 print 'Normalized Dist:', disthf
 
+sum = 0
+for i in dist.keys():
+    sum = dist[i] + sum
+mean = (sum * 1.0) / len(dist)
+sd = 0.0
+for i in dist.keys():
+    sd = math.pow(dist[i] - mean, 2) + sd
+
+sdv = math.sqrt((sd  * 1.0)/len(dist))
+print "s:", res[0]
+print "Mean:", mean
+print "Standard Deviation:", sdv
+print "z-score:", (res[0] - mean)/sdv
+
+
 plt.bar(disthf.keys(), disthf.values(), label='statistical hypothesis')
 plt.xlabel('Scores')
 plt.ylabel('Fraction of trails')
@@ -150,4 +165,3 @@ plt.title('Normalized distribution of generate_null_distribution')
 plt.grid(True)
 # plt.legend(loc='upper right')
 plt.show()
-
