@@ -89,7 +89,22 @@ pm50 = read_scoring_matrix(PAM50_URL)
 am50 = student.compute_alignment_matrix(hseq, fseq, pm50, False)
 res = student.compute_local_alignment(hseq, fseq, pm50, am50 )
 
-print "Score:", res[0]
-print "Human   :", res[1]
-print "Fruitfly:", res[2]
+def print_res(res, label):
+    print "Score:", res[0]
+    print label[0], res[1]
+    print label[1], res[2]
 
+print_res(res,["Human   :", "Fruitfly:"])
+
+cpax = read_protein(CONSENSUS_PAX_URL)
+# print 'cpax:', cpax
+hdseq = res[1].replace('-', '')
+# print 'h no d:', hdseq
+amhc = student.compute_alignment_matrix(hdseq, cpax, pm50, True)
+gah = student.compute_global_alignment(hdseq, cpax, pm50, amhc)
+# gah = student.compute_global_alignment(cpax, hdseq, pm50, am50)
+print_res(gah,["Human:", "CPAX :"])
+fdseq = res[2].replace('-', '')
+amfc = student.compute_alignment_matrix(fdseq, cpax, pm50, True)
+gaf = student.compute_global_alignment(fdseq, cpax, pm50, amfc)
+print_res(gaf,["Fruitfly:", "CPAX    :"])
