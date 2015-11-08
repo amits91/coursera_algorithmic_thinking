@@ -136,10 +136,10 @@ def generate_null_distribution(seq_x, seq_y, scoring_matrix, num_trials):
         sdist[i] = (sdist[i] * 1.0) / num_trials
     return sdist
 
-disthf = generate_null_distribution(hseq, fseq, pm50, 10)
+disthf = generate_null_distribution(hseq, fseq, pm50, 100)
 print 'Dist', disthf
 
-plt.bar(disthf.keys(), disthf.values())
+plt.bar(disthf.keys(), disthf.values(), label='statistical hypothesis')
 plt.xlabel('Scores')
 plt.ylabel('Fraction of trails')
 plt.title('Normalized distribution of generate_null_distribution')
