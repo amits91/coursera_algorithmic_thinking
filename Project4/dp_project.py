@@ -133,3 +133,72 @@ def compute_global_alignment(seq_x, seq_y, scoring_matrix, align_mat):
 
     return (align_mat[len(seq_x)][len(seq_y)], aseq_x, aseq_y)
 
+def get_max(align_mat):
+    '''
+
+    :param align_mat:
+    :return:
+    '''
+    max_val = 0
+    idx = 0
+    jdx = 0
+    for row in range(len(align_mat)):
+        for col in range(len(align_mat[row])):
+            if max_val < align_mat[row][col]:
+                max_val = align_mat[row][col]
+                idx = row
+                jdx = col
+    return (max_val, idx, jdx)
+def compute_local_alignment(seq_x, seq_y, scoring_matrix, align_mat):
+    '''
+    :param seq_x:
+    :param seq_y:
+    :param scoring_matrix:
+    :param alignment_matrix:
+    :return:
+    '''
+
+    tup = get_max(align_mat)
+    max_val = tup[0]
+    idx = tup[1]
+    jdx = tup[2]
+
+    aseq_x = ''
+    aseq_y = ''
+    stop = False
+    while idx != 0 and jdx != 0:
+        if align_mat[idx][jdx] == 0:
+            stop = True
+            break
+        if align_mat[idx][jdx] == align_mat[idx - 1][jdx - 1] + scoring_matrix[seq_x[idx - 1]][seq_y[jdx - 1]]:
+            aseq_x = seq_x[idx - 1] + aseq_x
+            aseq_y = seq_y[jdx - 1] + aseq_y
+            idx = idx - 1
+            jdx = jdx - 1
+        else:
+            if align_mat[idx][jdx] == align_mat[idx - 1][jdx] + scoring_matrix[seq_x[idx - 1]]['-']:
+                aseq_x = seq_x[idx - 1] + aseq_x
+                aseq_y = '-' + aseq_y
+                idx = idx - 1
+            else:
+                aseq_x = '-' + aseq_x
+                aseq_y = seq_y[jdx - 1] + aseq_y
+                jdx = jdx - 1
+    if stop == False:
+        while idx != 0:
+            if align_mat[idx][jdx] == 0:
+                stop = True
+                break
+            aseq_x = seq_x[idx - 1] + aseq_x
+            aseq_y = '-' + aseq_y
+            idx = idx - 1
+    if stop == False:
+        while jdx != 0:
+            if align_mat[idx][jdx] == 0:
+                stop = True
+                break
+            aseq_x = '-' + aseq_x
+            aseq_y = seq_y[jdx - 1] + aseq_y
+            jdx = jdx - 1
+
+    return (max_val, aseq_x, aseq_y)
